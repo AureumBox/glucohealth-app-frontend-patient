@@ -47,26 +47,27 @@ export function Form() {
   })
 
   const { handleChange, handleSubmit, handleBlur, errors, touched, values } =
-    useFormik<CompleteProfileDto>({
-      initialValues: {
-        fullName: '',
-        phoneNumber: '',
-        birthDate: INITIAL_BIRTHDATE_VALUE,
-        weightInKg: 0,
-        heightInCm: 0,
-      },
-      validationSchema: completeProfileSchema,
-      onSubmit: values => {
-        const updateProfileDto: UpdateProfileDto = {
-          ...user,
-          ...values,
-          age:
-            new Date().getFullYear() - new Date(values.birthDate).getFullYear(),
-        }
-
-        updateProfileMutation.mutate(updateProfileDto)
-      },
-    })
+      useFormik<CompleteProfileDto>({
+        initialValues: {
+          fullName: '',
+          phoneNumber: '',
+          birthDate: INITIAL_BIRTHDATE_VALUE,
+          weightInKg: 0,
+          heightInCm: 0,
+          treatment: { id: 0, medicaments: [] }, // Añade la propiedad treatment con un valor inicial
+        },
+        validationSchema: completeProfileSchema,
+        onSubmit: values => {
+          const updateProfileDto: UpdateProfileDto = {
+            ...user,
+            ...values,
+            age:
+              new Date().getFullYear() - new Date(values.birthDate).getFullYear(),
+          }
+  
+          updateProfileMutation.mutate(updateProfileDto)
+        },
+      })
 
   return (
     <form
