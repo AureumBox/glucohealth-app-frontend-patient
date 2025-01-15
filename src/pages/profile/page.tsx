@@ -16,9 +16,13 @@ import { logout } from '~/features/auth/model/auth'
 import { useHistory } from 'react-router'
 import { useQuery } from '@tanstack/react-query'
 import { getOwnProfile } from '~/features/patients/services/get-profile'
+import logo from '~/shared/assets/logo.png'
+import darkLogo from '~/shared/assets/logo-dark.png'
 
 export function ProfilePage() {
   const history = useHistory()
+
+  let isDarkMode = matchMedia('(prefers-color-scheme: dark)').matches
 
   const [present, dismiss] = useIonLoading()
 
@@ -80,7 +84,22 @@ export function ProfilePage() {
       <IonPage>
         <IonHeader>
           <IonToolbar>
-            <IonTitle>Perfil</IonTitle>
+            <div className="flex items-center w-full">
+              <IonTitle className="flex-grow">Perfil</IonTitle>
+              {isDarkMode ? (
+                <img
+                  src={darkLogo}
+                  alt="GlucoHealth"
+                  className="h-16 m-4"
+                />
+              ) : (
+                <img
+                  src={logo}
+                  alt="GlucoHealth"
+                  className="h-16 m-4"
+                />
+              )}
+            </div>
           </IonToolbar>
         </IonHeader>
         <IonContent fullscreen>

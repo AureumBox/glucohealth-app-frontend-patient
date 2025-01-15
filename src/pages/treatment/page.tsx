@@ -19,6 +19,8 @@ import {
 import { MedicationCard } from '~/shared/components/medication-card'
 import { isMedicationInTakingRange } from '~/shared/utils/medication-in-taking-range'
 import { toIsoString } from '~/shared/utils/construct-date-string'
+import logo from '~/shared/assets/logo.png'
+import darkLogo from '~/shared/assets/logo-dark.png'
 
 export function TreatmentPage() {
   let isDarkMode = matchMedia('(prefers-color-scheme: dark)').matches
@@ -73,7 +75,22 @@ export function TreatmentPage() {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Tratamiento</IonTitle>
+          <div className="flex items-center w-full">
+            <IonTitle className="flex-grow">Tratamiento</IonTitle>
+            {isDarkMode ? (
+              <img
+                src={darkLogo}
+                alt="GlucoHealth"
+                className="h-16 m-4"
+              />
+            ) : (
+              <img
+                src={logo}
+                alt="GlucoHealth"
+                className="h-16 m-4"
+              />
+            )}
+          </div>  
         </IonToolbar>
       </IonHeader>
 

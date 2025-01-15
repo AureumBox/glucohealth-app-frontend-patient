@@ -22,11 +22,14 @@ import { getOwnProfile } from '~/features/patients/services/get-profile';
 import { QUERY_KEYS as PATIENT_QUERY_KEYS } from '~/features/patients/constants';
 import { QUERY_KEYS as IMC_QUERY_KEYS } from '~/features/imc/constants';
 import { getImcByPatientId } from '~/features/imc/services/get-by-id';
+import logo from '~/shared/assets/logo.png';
+import darkLogo from '~/shared/assets/logo-dark.png';
 
 export function DashboardPage() {
   const currentDate = new Date();
   const [presentLoading, dismissLoading] = useIonLoading();
   const [presentAlert] = useIonAlert();
+  let isDarkMode = matchMedia('(prefers-color-scheme: dark)').matches
 
   // Query para obtener el perfil del paciente
   const { data: patientId, isLoading: isProfileLoading, isError: isProfileError } = useQuery({
@@ -129,7 +132,22 @@ export function DashboardPage() {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Hoy</IonTitle>
+          <div className="flex items-center w-full">
+            <IonTitle className="flex-grow">Hoy</IonTitle>
+            {isDarkMode ? (
+              <img
+                src={darkLogo}
+                alt="GlucoHealth"
+                className="h-16 m-4"
+              />
+            ) : (
+              <img
+                src={logo}
+                alt="GlucoHealth"
+                className="h-16 m-4"
+              />
+            )}
+          </div>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
